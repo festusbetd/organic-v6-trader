@@ -98,6 +98,76 @@ class NotificationController extends Controller
         403
     );
     }
+    //for seller
+    public function orderSellerConfirmationMsg(Request $request)
+    {
+        $celcom_confirmation = Helpers::get_business_settings("celcom_confirmation");
+
+       if ($celcom_confirmation["status"]==1){
+        $url = \Config::get("app.CELCOM_URL");
+        $celcom_short_code = \Config::get("app.CELCOM_SHORT_CODE");
+        $celcome_api_key = \Config::get("app.CELCOM_API_KEY");
+        $celcom_pass_type = \Config::get("app.CELCOM_PASS_TYPE");
+
+        $validator = Validator::make($request->all(), [
+            "phone" => "required",
+            'name' => 'required',
+            'order_number' => 'required',
+            "phone.required" => "The Phone Number field is required.",
+            'name.required' => 'The Name field is required.',
+            'order_number.required' => 'The Order Number field is required.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                ["errors" => Helpers::error_processor($validator)],
+                403
+            );
+        }
+        $phone = $request["phone"];
+        $name = $request["name"];
+        $order_number = $request["order_number"];
+        $first_string_confirmation_message = ", We are glad to inform you that you have received order ";
+        $second_string_confirmation_message =",kindly process it.Thank you.";
+        $shortcode = $request["shortcode"];
+
+        $order_number = $request["order_number"];
+        $greetings ="Dear ";
+        $message = "$greetings\t" ."$name" .  "$first_string_confirmation_message\t".  "$order_number".  "$second_string_confirmation_message";
+
+        $curl_post_data = [
+            "partnerID" => "731",
+            "apikey" => $celcome_api_key,
+            "mobile" => $phone,
+            "message" => $message,
+            "shortcode" => $celcom_short_code,
+            "pass_type" => $celcom_pass_type,
+        ];
+        $data = json_encode($curl_post_data);
+
+        $headers = ["Content-Type: application/json"];
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        //for debug only!
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        return curl_exec($curl);
+    }else
+    return response()->json(
+        ["errors" => "Disabled"],
+        403
+    );
+}
+
+
     public function orderPendingMsg(Request $request)
     {
         $celcomPending = Helpers::get_business_settings("celcom_pending");

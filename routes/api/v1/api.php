@@ -32,6 +32,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
              //Notifications APIs
              Route::post('order_confirmation_msg', 'PassportAuthController@orderConfirmationMsg');
+             Route::post('order_seller_confirmation_msg', 'PassportAuthController@orderSellerConfirmationMsg');
              Route::post('order_pending_msg', 'PassportAuthController@orderPendingMsg');
              Route::post('order_processing_msg', 'PassportAuthController@orderProcessingMsg');
              Route::post('order_delivery_msg', 'PassportAuthController@orderDeliveryMsg');
@@ -119,6 +120,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
         //Notifications APIs
         Route::post('order_confirmation_msg', 'NotificationController@orderConfirmationMsg');
+        Route::post('order_seller_confirmation_msg', 'NotificationController@orderSellerConfirmationMsg');
         Route::post('order_pending_msg', 'NotificationController@orderPendingMsg');
         Route::post('order_processing_msg', 'NotificationController@orderProcessingMsg');
         Route::post('order_delivery_msg', 'NotificationController@orderDeliveryMsg');
