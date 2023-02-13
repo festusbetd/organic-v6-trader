@@ -416,8 +416,8 @@ class WebController extends Controller
         $seller_myArray = json_decode($seller_curl, true);
     
         $seller_phone = $seller_myArray[0]['phone'];
-        $seller_phone = $seller_myArray[0]['f_name'];
-        $seller_phone = $seller_myArray[0]['l_name'];
+        $seller_f_name = $seller_myArray[0]['f_name'];
+        // $seller_l_name = $seller_myArray[0]['l_name'];
 
         $product_quantity = $myArray__cart_details[0]["quantity"];
         $product_shipping_cost =CartManager::get_shipping_cost($cart_group_ids);
@@ -441,7 +441,7 @@ class WebController extends Controller
         if ($myArray[0]["resultCode"] == 0) {
             $email_confirmation_url =$app_url . "/api/v1/notifications/email_confirmation";
             $msg_confirmation_url =$app_url . "/api/v1/notifications/order_confirmation_msg";
-            $msg_confirmation_url =$app_url . "/api/v1/notifications/order_confirmation_msg";
+            $seller_msg_confirmation_url =$app_url . "/api/v1/notifications/order_seller_confirmation_msg";
             foreach (CartManager::get_cart_group_ids() as $group_id) {
                 $data = [
                     "payment_method" => "MPESA",
@@ -542,15 +542,16 @@ CURLOPT_SSL_VERIFYPEER => false,
                 $response = curl_exec($curl);
                 curl_close($curl);
 
+
                 $seller_confirmation_data = [
-                    "name"=> $f_name,
-                    "phone"=> $customer_phone_number,
+                    "name"=> $seller_f_name,
+                    "phone"=> $seller_phone,
                     "order_number"=>$ord
                 ];  
                 $seller_msg_confirmation_data= json_encode($seller_confirmation_data);
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                CURLOPT_URL => $msg_confirmation_url,
+                CURLOPT_URL => $seller_msg_confirmation_url,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_SSL_VERIFYHOST => false,
 CURLOPT_SSL_VERIFYPEER => false,
