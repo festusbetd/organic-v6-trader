@@ -351,7 +351,7 @@
                                 </div>
                                 <div class="mx-1">
                                     <a class="btn btn-outline-primary" href="{{route('customer.auth.login')}}">
-                                        <i class="fa fa-sign-in"></i> {{\App\CPU\translate('sing_in')}}
+                                        <i class="fa fa-sign-in"></i>Trader {{\App\CPU\translate('sing_in')}}
                                     </a>
                                 </div>
                                 <div class="col-12 mt-3">
