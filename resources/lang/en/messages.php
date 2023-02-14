@@ -1561,4 +1561,5 @@
   'gender' => 'Gender',
   'marital_status' => 'Marital status',
   'Farm' => 'Farm',
+  'Farmer' => 'Farmer',
 );

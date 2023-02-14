@@ -20,7 +20,7 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center mb-2 ">
-                            <h3 class="" > {{\App\CPU\translate('Farm')}} {{\App\CPU\translate('Application')}}</h3>
+                            <h3 class="" > {{\App\CPU\translate('Farmer')}} {{\App\CPU\translate('Application')}}</h3>
                             <hr>
                         </div>
                         <form class="user" action="{{route('shop.apply')}}" method="post" enctype="multipart/form-data">
@@ -78,13 +78,13 @@
                             </div>
 
 
-                            <h5 class="black">{{\App\CPU\translate('Shop')}} {{\App\CPU\translate('Info')}}</h5>
+                            <h5 class="black">{{\App\CPU\translate('Farm')}} {{\App\CPU\translate('Info')}}</h5>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0 ">
-                                    <input type="text" class="form-control form-control-user" id="shop_name" name="shop_name" placeholder="{{\App\CPU\translate('shop_name')}}" value="{{old('shop_name')}}"required>
+                                    <input type="text" class="form-control form-control-user" id="shop_name" name="shop_name" placeholder="Farm Name" value="{{old('shop_name')}}"required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <textarea name="shop_address" class="form-control" id="shop_address"rows="1" placeholder="{{\App\CPU\translate('shop_address')}}">{{old('shop_address')}}</textarea>
+                                    <textarea name="shop_address" class="form-control" id="shop_address"rows="1" placeholder="Farm Address">{{old('shop_address')}}</textarea>
                                 </div>
                             </div>
                             <div class="">
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block" id="apply">{{\App\CPU\translate('Apply')}} {{\App\CPU\translate('Shop')}} </button>
+                            <button type="submit" class="btn btn-primary btn-user btn-block" id="apply">{{\App\CPU\translate('Apply')}} {{\App\CPU\translate('Farmer')}} </button>
                         </form>
                         <hr>
                         <div class="text-center">
