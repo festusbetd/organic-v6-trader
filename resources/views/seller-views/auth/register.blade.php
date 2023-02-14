@@ -20,7 +20,7 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center mb-2 ">
-                            <h3 class="" > {{\App\CPU\translate('Shop')}} {{\App\CPU\translate('Application')}}</h3>
+                            <h3 class="" > {{\App\CPU\translate('Farm')}} {{\App\CPU\translate('Application')}}</h3>
                             <hr>
                         </div>
                         <form class="user" action="{{route('shop.apply')}}" method="post" enctype="multipart/form-data">

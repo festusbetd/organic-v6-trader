@@ -1560,4 +1560,5 @@
   'user_industry' => 'User industry',
   'gender' => 'Gender',
   'marital_status' => 'Marital status',
+  'Farm' => 'Farm',
 );
