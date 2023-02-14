@@ -44,10 +44,10 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0 mt-4">
-                                    <input type="text" class="form-control form-control-user" id="exampleInputID" name="id_number" value="{{old('id_number')}}" placeholder="Seller ID/Passport No" required>
+                                    <input type="text" class="form-control form-control-user" id="exampleInputID" name="id_number" value="{{old('id_number')}}" placeholder="Farmer ID/Passport No" required>
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0 mt-4">
-                                    <input type="text" class="form-control form-control-user" id="exampleInputEmployeeNumber" name="empoyee_number" value="{{old('empoyee_number')}}" placeholder="Shop Registration Number" required>
+                                    <input type="text" class="form-control form-control-user" id="exampleInputEmployeeNumber" name="empoyee_number" value="{{old('empoyee_number')}}" placeholder="Farmer Registration Number" required>
                                 </div>
                             </div>
 
