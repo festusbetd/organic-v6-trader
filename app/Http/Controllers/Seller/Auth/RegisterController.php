@@ -37,6 +37,22 @@ class RegisterController extends Controller
             $seller->phone = $request->phone;
             $seller->email = $request->email;
             $seller->id = $request->id_number;
+            //added
+   
+            $seller->kra_pin= $request->kra_pin;
+            $seller-> marital_status= $request->  marital_status ;
+            $seller->other_phone_number= $request->other_phone_number ;
+            $seller-> gender= $request->gender  ;
+            $seller-> group_or_co_operative= $request->group_or_co_operative  ;
+            $seller->  total_land_size= $request->total_land_size;
+            $seller-> total_land_size_organic= $request->total_land_size_organic  ;
+            $seller-> county= $request-> county ;
+            $seller-> constituency= $request->constituency  ;
+            $seller-> ward= $request->ward  ;
+            $seller-> village= $request->  village ;  
+            $seller-> user_type_name= $request-> user_type_name ;
+
+
             $seller->empoyee_number = $request->empoyee_number;
             $seller->image = ImageManager::upload('seller/', 'png', $request->file('image'));
             $seller->password = bcrypt($request->password);
