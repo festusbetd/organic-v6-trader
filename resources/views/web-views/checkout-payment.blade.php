@@ -341,7 +341,7 @@
                          @if($config['status'])
                             <div class="col-md-6 mb-4" style="cursor: pointer">
                                 <div class="card">
-                                    <div class="card-body" style="height: 100px">
+                                    <!-- <div class="card-body" style="height: 100px"> -->
                                         @php($config=\App\CPU\Helpers::get_business_settings('mpesa_pay'))
                                         @php($order=\App\Model\Order::find(session('cart_group_id')))
                                         @php($user=auth('customer')->user())
@@ -380,7 +380,8 @@
                                             <img width="100"
                                                  src="{{asset('public/assets/front-end/img/mpesa.png')}}"/>
                                         </button>
-                                    </div>
+
+                                    <!-- </div> -->
                                 </div>
                             </div>
                             @endif
@@ -388,18 +389,18 @@
                          @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
 
                          @if($config['status'])
-                            <div class="col-md-6 mb-4" style="cursor: pointer">
-                                <div class="card">
-                                    <div class="card-body" style="height: 130px">
+                            <div class="col-md-5 mb-2" style="cursor: pointer">
+                                <div class="card" >
+                                   
                                         @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
                                         @php($order=\App\Model\Order::find(session('cart_group_id')))
                                         @php($user=auth('customer')->user())
                              
                                         @php($data = new \stdClass())
-                            
                                         @php($data->detail = 'payment')
-                                        <!-- @php($credit_pay_status = json_encode($config,TRUE) ) -->
 
+                                        <!-- @php($credit_data = json_encode($config, true)) -->
+                                  
                                         @php($data->session = session('cart_group_id'))
                                         @php($data->cart_group_id = session('cart_group_id'))
                                         @php($data->amount = \App\CPU\Convert::usdTomyr($amount))
@@ -409,37 +410,31 @@
 
                                         @php($cart = session('cart_group_id'))
                                   
+                                    <div class="col-md-6 mb-4" style="cursor: pointer">
+                                    
+                                            <div class="card-body" style="height: 100px">
+                                                
+                                                    <select class="form-control" onchange="" style="width: 160px" >
+                                                            <option>Credit Option</option>
+                                                            @foreach($config['credit'] as $config_pay)
 
-                                 
-                                        <form name="order" method="post"
-                                              action="">
-                        
-                                
-                                            <input type="hidden" id="amount" name="amount" value="{{$data->amount}}">
-                                            
-                                            <input type="hidden" id="name" name="name" value="{{$data->name}}">
-                                            <input type="hidden" id="email" name="email" value="{{$data->email}}">
-                                            <input type="hidden" id="phone" name="phone" value="{{$data->phone}}">
+                                                                <option value=""> {{$config_pay}} days  </option>
 
-                                  
-                                       
+                                                            @endforeach
+                                                    </select>
+                                                   
+                                                    <button type="button" class="btn btn-primary" style="margin-top: 10px;">Continue</button>
+                                                  
 
-                                      
-                                        </form>
-
-                                        <button class="btn btn-block" type="button"
-                                                onclick="proceed_to_next()">
-                                            <img width="90"
-                                                 src="{{asset('public/assets/front-end/img/credit-pay.png')}}"/>
-                                        </button>
-
-                                   
-                                </div>
+                                            </div>
+                                        
                                     </div>
+
                                 </div>
                             </div>
                             @endif
                     </div>
+                    
                     <!-- Navigation (desktop)-->
                     <div class="row">
                         <div class="col-4"></div>
