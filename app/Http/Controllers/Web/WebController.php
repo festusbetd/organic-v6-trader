@@ -379,6 +379,32 @@ class WebController extends Controller
         return view("web-views.checkout-complete");
     }
 
+    public function checkout_credit(Request $request)
+    {
+        $unique_id = OrderManager::gen_unique_id();
+
+       
+        $cart_group_ids = CartManager::get_cart_group_ids();
+        $order_ids = [];
+        foreach (CartManager::get_cart_group_ids() as $group_id) {
+            $data = [
+                "payment_method" => "credit",
+                "order_status" => "pending",
+                "payment_status" => "unpaid",
+                "transaction_ref" => "",
+                "order_group_id" => $unique_id,
+                "cart_group_id" => $group_id,
+                "order_cart_id" => $cart_group_ids,
+            ];
+            $order_id = OrderManager::generate_order($data);
+            array_push($order_ids, $order_id);
+        }
+
+        CartManager::cart_clean();
+        $ord = $order_id;
+        return view("web-views.checkout-complete");
+    }
+
     public function order_placed()
     {
         return view("web-views.checkout-complete");

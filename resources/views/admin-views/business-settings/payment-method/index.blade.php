@@ -838,27 +838,11 @@
                                     <br>
                                 </div>
 
-                            <div class="form-group mb-2">
-                            <label
-                                style="padding-left: 10px">First Option</label><br>
-                            <input type="text" class="form-control" name="first"
-                                    value="{{env('APP_MODE')!='demo'?$config['first']:''}}">
-                            </div>
+                        
+                  
+              
 
-                            <div class="form-group mb-2">
-                                <label
-                                    style="padding-left: 10px">Second Option</label><br>
-                                <input type="text" class="form-control" name="second"
-                                       value="{{env('APP_MODE')!='demo'?$config['second']:''}}">
-                            </div>
-                            <div class="form-group mb-2">
-                                <label
-                                    style="padding-left: 10px">Third Option</label><br>
-                                <input type="text" class="form-control" name="third"
-                                       value="{{env('APP_MODE')!='demo'?$config['third']:''}}">
-                            </div>
-
-                            
+                    
                                 <button type="{{env('APP_MODE')!='demo'?'submit':'button'}}"
                                         onclick="{{env('APP_MODE')!='demo'?'':'call_demo()'}}"
                                         class="btn btn-primary mb-2">{{\App\CPU\translate('save')}}</button>

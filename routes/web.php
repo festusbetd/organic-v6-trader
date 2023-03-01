@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Web','middleware'=>['maintenance_mode']], function
         Route::get('checkout-payment-pick-up', 'WebController@checkout_payment_pick_up')->name('checkout-payment-pick-up')->middleware('customer');
         Route::get('checkout-review', 'WebController@checkout_review')->name('checkout-review')->middleware('customer');
         Route::get('checkout-complete', 'WebController@checkout_complete')->name('checkout-complete')->middleware('customer');
+        Route::get('checkout_credit', 'WebController@checkout_credit')->name('checkout_credit')->middleware('customer');
         Route::get('order-placed', 'WebController@order_placed')->name('order-placed')->middleware('customer');
         Route::get('checkout-complete_2', 'WebController@checkout_complete_2')->name('checkout-complete_2')->middleware('customer');
         Route::get('checkout-complete-mpesa', 'WebController@checkout_complete_mpesa')->name('checkout-complete-mpesa')->middleware('customer');

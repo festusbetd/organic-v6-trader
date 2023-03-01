@@ -263,6 +263,8 @@ class OrderManager
 
         $cart_group_id = $data['cart_group_id'];
         $seller_data = Cart::where(['cart_group_id' => $cart_group_id])->first();
+        
+     
 
         $or = [
             'id' => $order_id,
@@ -283,7 +285,6 @@ class OrderManager
             'transaction_ref' => $data['transaction_ref'],
             'order_group_id' => $data['order_group_id'],
             'order_cart_id' => $data['order_group_id'],      
-            'discount_amount' => $discount,
             'discount_amount' => $discount,
             'discount_type' => $discount == 0 ? null : 'coupon_discount',
             'coupon_code' => $coupon_code,

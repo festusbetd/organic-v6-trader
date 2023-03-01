@@ -341,7 +341,7 @@
                          @if($config['status'])
                             <div class="col-md-6 mb-4" style="cursor: pointer">
                                 <div class="card">
-                                    <!-- <div class="card-body" style="height: 100px"> -->
+                                    <div class="card-body" style="height: 100px">
                                         @php($config=\App\CPU\Helpers::get_business_settings('mpesa_pay'))
                                         @php($order=\App\Model\Order::find(session('cart_group_id')))
                                         @php($user=auth('customer')->user())
@@ -380,61 +380,64 @@
                                             <img width="100"
                                                  src="{{asset('public/assets/front-end/img/mpesa.png')}}"/>
                                         </button>
-
-                                    <!-- </div> -->
-                                </div>
-                            </div>
-                            @endif
-
-                         @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
-
-                         @if($config['status'])
-                            <div class="col-md-5 mb-2" style="cursor: pointer">
-                                <div class="card" >
-                                   
-                                        @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
-                                        @php($order=\App\Model\Order::find(session('cart_group_id')))
-                                        @php($user=auth('customer')->user())
-                             
-                                        @php($data = new \stdClass())
-                                        @php($data->detail = 'payment')
-
-                                        <!-- @php($credit_data = json_encode($config, true)) -->
-                                  
-                                        @php($data->session = session('cart_group_id'))
-                                        @php($data->cart_group_id = session('cart_group_id'))
-                                        @php($data->amount = \App\CPU\Convert::usdTomyr($amount))
-                                        @php($data->name = $user->f_name.' '.$user->l_name)
-                                        @php($data->email = $user->email)
-                                        @php($data->phone = $user->phone)
-
-                                        @php($cart = session('cart_group_id'))
-                                  
-                                    <div class="col-md-6 mb-4" style="cursor: pointer">
-                                    
-                                            <div class="card-body" style="height: 100px">
-                                                
-                                                    <select class="form-control" onchange="" style="width: 160px" >
-                                                            <option>Credit Option</option>
-                                                            @foreach($config['credit'] as $config_pay)
-
-                                                                <option value=""> {{$config_pay}} days  </option>
-
-                                                            @endforeach
-                                                    </select>
-                                                   
-                                                    <button type="button" class="btn btn-primary" style="margin-top: 10px;">Continue</button>
-                                                  
-
-                                            </div>
-                                        
                                     </div>
-
                                 </div>
                             </div>
                             @endif
+                        @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
+
+                        @if($config['status'])
+                        <div class="col-md-5 mb-2" style="cursor: pointer">
+                            <div class="card" >
+                                
+                                    @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
+                                
+                                    @php($order=\App\Model\Order::find(session('cart_group_id')))
+                                    @php($user=auth('customer')->user())
+                                    @php($data = new \stdClass())
+                                    @php($data->detail = 'payment')
+                                    @php($data->session = session('cart_group_id'))
+                                    @php($data->cart_group_id = session('cart_group_id'))
+                                    @php($data->amount = \App\CPU\Convert::usdTomyr($amount))
+                                    @php($data->name = $user->f_name.' '.$user->l_name)
+                                    @php($data->email = $user->email)
+                                    @php($data->phone = $user->phone)
+
+                                    @php($cart = session('cart_group_id'))
+
+                                    <input type="text" id="amount" name="amount" value="{{$cart}}">
+                                    <input type="text" id="phone1" name="phone" value="{{ json_encode($cart_id,TRUE) }}">
+                                    <input type="text" id="amount" name="amount" value="{{$data->cart_group_id}}">
+                                    <input type="text" id="amount" name="amount" value="{{$data->session}}">
+                                    <input type="text" id="amount" name="amount" value="{{ json_encode($order,true)}}">
+                                    <input type="text" id="amount" name="amount" value="{{$data->name}}">
+                                
+                                <!-- <div class="col-md-6 mb-4" style="cursor: pointer">
+                                
+                                        <div class="card-body" style="height: 100px">
+                                                -->
+                                                <select class="form-control" onchange="" style="width: 160px" >
+                                                        <option>Credit Option</option>
+                                                        @foreach($config['credit'] as $config_pay)
+
+                                                            <option value="{{$config_pay}}"  {{$config_pay==$config_pay?'selected':''}}> {{$config_pay}} days  </option>
+
+                                                        @endforeach
+                                                </select>
+                                                
+                                                <button type="button" class="btn btn-primary" href="{{route('checkout_credit',['payment_method'=>'credit'])}}" onclick="proceed_on_credit()" style="margin-top: 10px;">Continue</button>
+                                                
+
+                                        <!-- </div>
+                                    
+                                </div> -->
+
+                            </div>
+                        </div>
+                        @endif
+
+
                     </div>
-                    
                     <!-- Navigation (desktop)-->
                     <div class="row">
                         <div class="col-4"></div>
@@ -471,6 +474,13 @@
         }, 10)
     </script>
     <script>
+
+    function proceed_on_credit(){
+            let url = "{{route('checkout_credit',['payment_method'=>'credit'])}}";
+            location.href=url;
+    
+        }
+
     function proceed_to_next(){
        // var data = document.getElementById('data').value;
  
@@ -480,7 +490,34 @@
         var mpesa_call_url = document.getElementById('mpesa_call_url').value;
         const AccountReference = JSON.parse(phone1);
 
-      
+        var mpesa_call_back_url = mpesa_call_url+"/api/v1/auth/request_pay"
+        console.log(mpesa_call_back_url)
+
+        var myHeaders = new Headers();
+            myHeaders.append("Accept", "application/json");
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Access-Control-Allow-Origin", "*");
+
+            var raw = JSON.stringify({
+            "phone": phone,
+            "amount": amount,
+            "AccountReference": AccountReference[0]
+            });
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch(mpesa_call_back_url, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+            location.href = '{{route('checkout-complete-mpesa')}}';
+    }
 </script>
     <script type="text/javascript">
         function BkashPayment() {
