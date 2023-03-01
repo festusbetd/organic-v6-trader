@@ -384,6 +384,61 @@
                                 </div>
                             </div>
                             @endif
+
+                         @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
+
+                         @if($config['status'])
+                            <div class="col-md-6 mb-4" style="cursor: pointer">
+                                <div class="card">
+                                    <div class="card-body" style="height: 130px">
+                                        @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
+                                        @php($order=\App\Model\Order::find(session('cart_group_id')))
+                                        @php($user=auth('customer')->user())
+                             
+                                        @php($data = new \stdClass())
+                            
+                                        @php($data->detail = 'payment')
+                                        <!-- @php($credit_pay_status = json_encode($config,TRUE) ) -->
+
+                                        @php($data->session = session('cart_group_id'))
+                                        @php($data->cart_group_id = session('cart_group_id'))
+                                        @php($data->amount = \App\CPU\Convert::usdTomyr($amount))
+                                        @php($data->name = $user->f_name.' '.$user->l_name)
+                                        @php($data->email = $user->email)
+                                        @php($data->phone = $user->phone)
+
+                                        @php($cart = session('cart_group_id'))
+                                  
+
+                                 
+                                        <form name="order" method="post"
+                                              action="">
+                        
+                                
+                                            <input type="hidden" id="amount" name="amount" value="{{$data->amount}}">
+                                            
+                                            <input type="hidden" id="name" name="name" value="{{$data->name}}">
+                                            <input type="hidden" id="email" name="email" value="{{$data->email}}">
+                                            <input type="hidden" id="phone" name="phone" value="{{$data->phone}}">
+
+                                  
+                                       
+
+                                      
+                                        </form>
+
+                                        <button class="btn btn-block" type="button"
+                                                onclick="proceed_to_next()">
+                                            <img width="90"
+                                                 src="{{asset('public/assets/front-end/img/credit-pay.png')}}"/>
+                                        </button>
+
+                                   
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                     </div>
                     <!-- Navigation (desktop)-->
                     <div class="row">
@@ -430,34 +485,7 @@
         var mpesa_call_url = document.getElementById('mpesa_call_url').value;
         const AccountReference = JSON.parse(phone1);
 
-        var mpesa_call_back_url = mpesa_call_url+"/api/v1/auth/request_pay"
-        console.log(mpesa_call_back_url)
-
-        var myHeaders = new Headers();
-            myHeaders.append("Accept", "application/json");
-            myHeaders.append("Content-Type", "application/json");
-            myHeaders.append("Access-Control-Allow-Origin", "*");
-
-            var raw = JSON.stringify({
-            "phone": phone,
-            "amount": amount,
-            "AccountReference": AccountReference[0]
-            });
-
-            var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-            };
-
-            fetch(mpesa_call_back_url, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
-            location.href = '{{route('checkout-complete-mpesa')}}';
-    }
+      
 </script>
     <script type="text/javascript">
         function BkashPayment() {

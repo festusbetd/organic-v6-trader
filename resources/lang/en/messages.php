@@ -1534,6 +1534,7 @@
   'Refresh' => 'Refresh',
   'Add new Employee' => 'Add new Employee',
   'mpesa_pay' => 'Mpesa pay',
+  'credit_pay' => 'Credit Pay',
   'Kindly Put your Mpesa pin' => 'Kindly Put your Mpesa pin',
   'select_collection_center' => 'Select collection center',
   'Order Failed Message provider\'s template ' => 'Order Failed Message provider s template ',

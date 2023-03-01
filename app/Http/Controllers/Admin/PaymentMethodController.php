@@ -286,6 +286,44 @@ class PaymentMethodController extends Controller
                 ]);
             }
         } 
+
+        elseif ($name == 'credit_pay') {
+            $payment = BusinessSetting::where('type', 'credit_pay')->first();
+            if (isset($payment) == false) {
+                DB::table('business_settings')->insert([
+                    'type' => 'credit_pay',
+                    'value' => json_encode([
+                        'status' => 1,
+                        'second' => '',
+                        'third' => ''
+                    ]),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } else {
+          
+
+                if ($request['status'] == 1) {
+                    $request->validate([
+                        'first' => 'required',
+                        'second' => 'required',
+                        'third' => 'required',
+                    ]);
+                }
+
+                DB::table('business_settings')->where(['type' => 'credit_pay'])->update([
+                    'type' => 'credit_pay',
+                    'value' => json_encode([
+                        'status' => $request['status'],
+                        'first' =>  $request['first'],
+                        'second' =>  $request['second'],
+                        'third' => $request['third'],
+                    ]),
+                    'updated_at' => now(),
+                ]);
+            }
+        } 
+
         elseif ($name == 'paystack') {
             $payment = BusinessSetting::where('type', 'paystack')->first();
             if (isset($payment) == false) {

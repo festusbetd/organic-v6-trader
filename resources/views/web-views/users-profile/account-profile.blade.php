@@ -237,7 +237,7 @@
 
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="user_type_name"> User Type </label>
+                                            <label for="user_type"> User Type </label>
                                        
 
                                          <select class="form-control" list="user_type" type="text" value="{{old('user_type')}}" name="user_type"
@@ -252,9 +252,9 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                        <label for="user_type_name">Group/Co-operative name</label>
-                                            <input type="text" class="form-control" id="user_type_name" name="user_type_name"
-                                                   value="{{$customerDetail['user_type_name']}}" required>
+                                        <label for="physical_address">Physical Address</label>
+                                            <input type="text" class="form-control" id="physical_address" name="physical_address"
+                                                   value="{{$customerDetail['physical_address']}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                         <label for="user_industry">{{\App\CPU\translate('user_industry')}} </label>
@@ -277,17 +277,17 @@
                                             <option value='Supermarkets'>Supermarkets</option>
                                             </select> 
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                        <label for="land_size"> Total Land (size) </label>
-                                            <input type="text" class="form-control" id="land_size" name="land_size"
-                                                   value="{{$customerDetail['land_size']}}">
+                                        <label for="business_name"> Business Name </label>
+                                            <input type="text" class="form-control" id="business_name" name="business_name"
+                                                   value="{{$customerDetail['business_name']}}">
                                         </div>
                                         <div class="form-group col-md-6">
-                                        <label for="organic_land_size">Land under Organic (size)</label>
-                                            <input type="text" class="form-control" id="organic_land_size" name="organic_land_size"
-                                                   value="{{$customerDetail['organic_land_size']}}" required>
+                                        <label for="business_location">Business Location </label>
+                                            <input type="text" class="form-control" id="business_location" name="business_location"
+                                                   value="{{$customerDetail['business_location']}}" required>
                                         </div>
                                     </div>
 

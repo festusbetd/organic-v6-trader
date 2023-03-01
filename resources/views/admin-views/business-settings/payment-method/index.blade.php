@@ -809,6 +809,68 @@
             </div>
         </div>
 
+
+        <!-- credit -->
+
+        <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body" style="padding: 20px">
+                        <h5 class="text-center">{{\App\CPU\translate('credit_pay')}}</h5>
+                        @php($config=\App\CPU\Helpers::get_business_settings('credit_pay'))
+                        <form action="{{route('admin.business-settings.payment-method.update',['credit_pay'])}}"
+                              style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+                              method="post">
+                            @csrf
+                            @if(isset($config))
+                                <div class="form-group mb-2">
+                                    <label class="control-label">{{\App\CPU\translate('cash_on_delivery')}}</label>
+                                </div>
+                                <div class="form-group mb-2 mt-2">
+                                    <input type="radio" name="status" value="1" {{$config['status']==1?'checked':''}}>
+                                    <label
+                                        style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('Active')}}</label>
+                                    <br>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <input type="radio" name="status" value="0" {{$config['status']==0?'checked':''}}>
+                                    <label
+                                        style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 10px">{{\App\CPU\translate('Inactive')}}</label>
+                                    <br>
+                                </div>
+
+                            <div class="form-group mb-2">
+                            <label
+                                style="padding-left: 10px">First Option</label><br>
+                            <input type="text" class="form-control" name="first"
+                                    value="{{env('APP_MODE')!='demo'?$config['first']:''}}">
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label
+                                    style="padding-left: 10px">Second Option</label><br>
+                                <input type="text" class="form-control" name="second"
+                                       value="{{env('APP_MODE')!='demo'?$config['second']:''}}">
+                            </div>
+                            <div class="form-group mb-2">
+                                <label
+                                    style="padding-left: 10px">Third Option</label><br>
+                                <input type="text" class="form-control" name="third"
+                                       value="{{env('APP_MODE')!='demo'?$config['third']:''}}">
+                            </div>
+
+                            
+                                <button type="{{env('APP_MODE')!='demo'?'submit':'button'}}"
+                                        onclick="{{env('APP_MODE')!='demo'?'':'call_demo()'}}"
+                                        class="btn btn-primary mb-2">{{\App\CPU\translate('save')}}</button>
+                            @else
+                                <button type="submit"
+                                        class="btn btn-primary mb-2">{{\App\CPU\translate('Configure')}}</button>
+                            @endif
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
