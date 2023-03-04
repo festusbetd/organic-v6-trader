@@ -405,18 +405,20 @@
 
                                     @php($cart = session('cart_group_id'))
 
-                                    <input type="text" id="amount" name="amount" value="{{$cart}}">
-                                    <input type="text" id="phone1" name="phone" value="{{ json_encode($cart_id,TRUE) }}">
-                                    <input type="text" id="amount" name="amount" value="{{$data->cart_group_id}}">
-                                    <input type="text" id="amount" name="amount" value="{{$data->session}}">
-                                    <input type="text" id="amount" name="amount" value="{{ json_encode($order,true)}}">
-                                    <input type="text" id="amount" name="amount" value="{{$data->name}}">
+                                    <input type="hidden" id="amount" name="amount" value="{{$data->session}}">
+                                    <input type="hidden" id="phone1" name="phone" value="{{ json_encode($cart_id,TRUE) }}">
+                                    <input type="hidden" id="amount" name="amount" value="{{$data->cart_group_id}}">
+                                    <input type="hidden" id="amount" name="amount" value="{{$data->session}}">
+                                    <input type="hidden" id="amount" name="amount" value="{{ json_encode($order,true)}}">
+                                    <input type="hidden" id="amount" name="amount" value="{{$data->name}}">
                                 
                                 <!-- <div class="col-md-6 mb-4" style="cursor: pointer">
                                 
                                         <div class="card-body" style="height: 100px">
                                                 -->
+                                                <img width="200"  src="{{asset('public/assets/front-end/img/credit-p.jpg')}}"/>
                                                 <select class="form-control" onchange="" style="width: 160px" >
+                                                
                                                         <option>Credit Option</option>
                                                         @foreach($config['credit'] as $config_pay)
 

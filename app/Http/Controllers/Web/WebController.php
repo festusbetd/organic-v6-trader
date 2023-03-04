@@ -359,13 +359,28 @@ class WebController extends Controller
     {
         $unique_id = OrderManager::gen_unique_id();
         $cart_group_ids = CartManager::get_cart_group_ids();
+        $cart_details = CartManager::get_cart();
+        $curl_cart_details = html_entity_decode($cart_details);
+        $myArray__cart_details = json_decode($curl_cart_details, true);
+
+        $product_quantity = $myArray__cart_details[0]["quantity"];
+        $product_shipping_cost =CartManager::get_shipping_cost($cart_group_ids);
+
+        if ($myArray__cart_details[0]["unit_pricing"] == 1) {
+            $product_cost =($myArray__cart_details[0]["price"] * $product_quantity)+ ($product_shipping_cost*$product_quantity);
+        } else {
+            $product_cost = ($myArray__cart_details[0]["price"] * $product_quantity)+ $product_shipping_cost;
+        }
+
         $order_ids = [];
         foreach (CartManager::get_cart_group_ids() as $group_id) {
             $data = [
                 "payment_method" => "cash_on_delivery",
-                "order_status" => "pending",
+                "order_status" => "Confirmed",
                 "payment_status" => "unpaid",
                 "transaction_ref" => "",
+                "unit_pricing" => $myArray__cart_details[0]["price"],
+                "product_total_cost" => $product_cost,
                 "order_group_id" => $unique_id,
                 "cart_group_id" => $group_id,
                 "order_cart_id" => $cart_group_ids,
@@ -382,16 +397,32 @@ class WebController extends Controller
     public function checkout_credit(Request $request)
     {
         $unique_id = OrderManager::gen_unique_id();
-
-       
+        $cart_details = CartManager::get_cart();
+        // return $cart_details;
         $cart_group_ids = CartManager::get_cart_group_ids();
+        $curl_cart_details = html_entity_decode($cart_details);
+        $myArray__cart_details = json_decode($curl_cart_details, true);
+
+        $product_quantity = $myArray__cart_details[0]["quantity"];
+        $product_shipping_cost =CartManager::get_shipping_cost($cart_group_ids);
+
+        if ($myArray__cart_details[0]["unit_pricing"] == 1) {
+            $product_cost =($myArray__cart_details[0]["price"] * $product_quantity)+ ($product_shipping_cost*$product_quantity);
+        } else {
+            $product_cost = ($myArray__cart_details[0]["price"] * $product_quantity)+ $product_shipping_cost;
+        }
+
+        // return $product_cost;
+        // return $myArray__cart_details[0]["price"];
         $order_ids = [];
         foreach (CartManager::get_cart_group_ids() as $group_id) {
             $data = [
                 "payment_method" => "credit",
-                "order_status" => "pending",
+                "order_status" => "Confirmed",
                 "payment_status" => "unpaid",
                 "transaction_ref" => "",
+                "unit_pricing" => $myArray__cart_details[0]["price"],
+                "product_total_cost" => $product_cost,
                 "order_group_id" => $unique_id,
                 "cart_group_id" => $group_id,
                 "order_cart_id" => $cart_group_ids,
@@ -399,6 +430,19 @@ class WebController extends Controller
             $order_id = OrderManager::generate_order($data);
             array_push($order_ids, $order_id);
         }
+
+        // $data = [
+        //     "payment_method" => "MPESA",
+        //     "order_status" => "Confirmed",
+        //     "payment_status" => "paid",
+        //     "transaction_ref" => "",
+        //     "unit_pricing" => $myArray__cart_details[0]["price"],
+        //     "product_total_cost" => $product_cost,
+        //     "transaction_ref" => "",
+        //     "order_group_id" => $unique_id,
+        //     "cart_group_id" => $group_id,
+        //     "order_cart_id" => $cart_group_ids,
+        // ];
 
         CartManager::cart_clean();
         $ord = $order_id;
