@@ -96,6 +96,7 @@
                         <th>{{\App\CPU\translate('customer_name')}}</th>
                         <th>{{\App\CPU\translate('Status')}}</th>
                         <th>{{\App\CPU\translate('Total')}}</th>
+                        <th>Credit</th>
                         <th>{{\App\CPU\translate('Order')}} {{\App\CPU\translate('Status')}} </th>
                         <th>{{\App\CPU\translate('Action')}}</th>
                     </tr>
@@ -133,6 +134,24 @@
                                     </span>
                                 @endif
                             </td>
+                            <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}</td>
+
+                            <td class="bodytr">
+                                    @if($order['credit_days']==null || $order['order_status']=='null')
+                                            <span class="badge badge-danger text-capitalize">
+                                               None
+                                            </span>
+                                       
+                                        @else
+                                            <span class="badge badge-info text-capitalize">
+                                            {{\App\CPU\translate($order['credit_days'])}}
+                                            
+                                            </span>
+                                        @endif
+
+                                           
+                                    </td>
+
                             <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}</td>
                             <td class="text-capitalize">
                                 @if($order['order_status']=='pending')

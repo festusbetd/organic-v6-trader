@@ -1564,4 +1564,5 @@
   'Farm' => 'Farm',
   'Farmer' => 'Farmer',
   'Discount on Purchase' => 'Discount on Purchase',
+  '2 days' => '2 days',
 );

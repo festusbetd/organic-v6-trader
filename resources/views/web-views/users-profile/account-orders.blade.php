@@ -118,6 +118,10 @@
                                 </td>
                                 <td class="tdBorder">
                                     <div class="py-2"><span
+                                            class="d-block spandHeadO"> Credit</span></div>
+                                </td>
+                                <td class="tdBorder">
+                                    <div class="py-2"><span
                                             class="d-block spandHeadO"> {{\App\CPU\translate('Total')}}</span></div>
                                 </td>
                                 <td class="tdBorder">
@@ -148,6 +152,21 @@
                                                 {{\App\CPU\translate($order['order_status'])}}
                                             </span>
                                         @endif
+                                    </td>
+                                    <td class="bodytr">
+                                    @if($order['credit_days']==null || $order['order_status']=='null')
+                                            <span class="badge badge-danger text-capitalize">
+                                               None
+                                            </span>
+                                       
+                                        @else
+                                            <span class="badge badge-info text-capitalize">
+                                            {{\App\CPU\translate($order['credit_days'])}}
+                                            
+                                            </span>
+                                        @endif
+
+                                           
                                     </td>
                                     <td class="bodytr">
                                         {{\App\CPU\Helpers::currency_converter($order['order_amount'])}}
