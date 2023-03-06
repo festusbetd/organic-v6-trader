@@ -394,8 +394,12 @@ class WebController extends Controller
         return view("web-views.checkout-complete");
     }
 
-    public function checkout_credit(Request $request)
+    public function checkout_credit(Request  $selectedText)
     {
+         $innerData = json_decode($selectedText['2_days?data'], true);
+         $selected_text = $innerData['selectedText'];
+
+
         $unique_id = OrderManager::gen_unique_id();
         $cart_details = CartManager::get_cart();
         // return $cart_details;
@@ -421,6 +425,7 @@ class WebController extends Controller
                 "order_status" => "Confirmed",
                 "payment_status" => "unpaid",
                 "transaction_ref" => "",
+                "credit_days" => $selected_text,
                 "unit_pricing" => $myArray__cart_details[0]["price"],
                 "product_total_cost" => $product_cost,
                 "order_group_id" => $unique_id,

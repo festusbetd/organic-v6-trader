@@ -417,17 +417,40 @@
                                         <div class="card-body" style="height: 100px">
                                                 -->
                                                 <img width="200"  src="{{asset('public/assets/front-end/img/credit-p.jpg')}}"/>
-                                                <select class="form-control" onchange="" style="width: 160px" >
+                                                <br />
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="credit">Select Credit:</label>
+                                                        <select class="form-control" id="credit" name="credit">
+                                                        <?php
+                                                        $json = '{"status": 1, "credit": [1, 2, 3]}';
+                                                        $data = json_decode($json, true);
+                                                        foreach ($data["credit"] as $credit) {
+                                                           
+                                                            $text = "$credit days";
+                                                            echo "<option value=\"$credit\">$text</option>";
+                                                        }
+                                                        ?>
+                                                        </select>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary" onclick="getSelectedCredit()">Submit</button>
+                                                    </form>
+
+                                                    <p id="selectedCredit"></p>
+                                                    
+                                                   
+
+                                                <!-- <select class="form-control" style="width: 160px" >
                                                 
                                                         <option>Credit Option</option>
                                                         @foreach($config['credit'] as $config_pay)
-
                                                             <option value="{{$config_pay}}"  {{$config_pay==$config_pay?'selected':''}}> {{$config_pay}} days  </option>
-
                                                         @endforeach
-                                                </select>
+                                                </select> -->
+
+                                             
                                                 
-                                                <button type="button" class="btn btn-primary" href="{{route('checkout_credit',['payment_method'=>'credit'])}}" onclick="proceed_on_credit()" style="margin-top: 10px;">Continue</button>
+                                                <!-- <button type="button" class="btn btn-primary"  style="margin-top: 10px;">Continue</button> -->
                                                 
 
                                         <!-- </div>
@@ -477,9 +500,27 @@
     </script>
     <script>
 
-    function proceed_on_credit(){
-            let url = "{{route('checkout_credit',['payment_method'=>'credit'])}}";
-            location.href=url;
+    function getSelectedCredit(){
+        var selectElement = document.getElementById("credit");
+        var selectedValue = selectElement.value;
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var selectedText = selectedOption.text;
+        var selectedDays = selectedText.match(/\d+/)[0];
+        
+        const selected_data= {
+                                selectElement: selectElement,
+                                selectedValue:selectedValue,
+                                selectedOption:selectedOption,
+                                selectedText:selectedText,
+                                selectedDays:selectedDays
+                                };
+        
+        var data = { name: 'John', age: 30, address: '123 Main St' };
+        var url = "{{ route('checkout_credit', [':selectedText'], ['payment_method' => 'credit']) }}";
+        url = url.replace(':selectedText', selectedText);
+        url += '?data=' + encodeURIComponent(JSON.stringify(selected_data));
+        location.href = url;
+    
     
         }
 

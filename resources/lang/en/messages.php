@@ -1563,4 +1563,5 @@
   'marital_status' => 'Marital status',
   'Farm' => 'Farm',
   'Farmer' => 'Farmer',
+  'Discount on Purchase' => 'Discount on Purchase',
 );

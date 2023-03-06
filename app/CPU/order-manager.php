@@ -283,6 +283,7 @@ class OrderManager
             'product_total_cost' => $data['product_total_cost'],
             'payment_method' => $data['payment_method'],
             'transaction_ref' => $data['transaction_ref'],
+            'credit_days' => $data['credit_days'],
             'order_group_id' => $data['order_group_id'],
             'order_cart_id' => $data['order_group_id'],      
             'discount_amount' => $discount,
